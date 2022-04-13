@@ -7,13 +7,19 @@ function ContactForm() {
 
   const [errorMessage, setErrorMessage] = useState('');
 
-  function handleChange(e) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!errorMessage) {
+      setFormState({ [e.target.name]: e.target.value });
+      console.log('Form', formState);
+    }
+  };
+
+  const handleChange = (e) => {
     if (e.target.name === 'email') {
       const isValid = validateEmail(e.target.value);
-      console.log(isValid);
-      // isValid conditional statement
       if (!isValid) {
-        setErrorMessage('Your email is invalid');
+        setErrorMessage('Your email is invalid.');
       } else {
         setErrorMessage('');
       }
@@ -24,18 +30,7 @@ function ContactForm() {
         setErrorMessage('');
       }
     }
-    setFormState({...formState, [e.target.name]: e.target.value })
-
-    if (!errorMessage) {
-      setFormState({ ...formState, [e.target.name]: e.target.value })
-    }
-  }
-  //console.log('errorMessage', errorMessage);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(formState);
-  }
+  };
 
   return (
     <section>
